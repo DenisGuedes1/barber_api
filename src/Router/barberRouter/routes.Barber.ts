@@ -16,6 +16,7 @@ import {
     getAvailableSlotsController,
     setAvailabilityController,
 } from "../../Controller/Barber/availabilityController";
+import setAppointmentController from "../../Controller/Barber/setAppointmentController";
 
 const barberRouter: Router = Router();
 
@@ -44,5 +45,11 @@ barberRouter.get(
     "/service/:barberId",
     veriFyTokenIsValid,
     getAvailableSlotsController
+);
+
+barberRouter.post(
+    "/barber/:barberId",
+    veriFyTokenIsValid,
+    setAppointmentController
 );
 export default barberRouter;

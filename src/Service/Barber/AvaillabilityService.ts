@@ -1,15 +1,21 @@
 import { AppDataSource } from "../../data-source";
 import { BarberAvailability } from "../../entities/barberAvailability";
+import { Barbers } from "../../entities/barbers";
 
 const availabilityRepository = AppDataSource.getRepository(BarberAvailability);
-
+const barberRepository = AppDataSource.getRepository(Barbers);
 export const setAvailabilityService = async (
     barberId: number,
     weekday: number,
     hours: string
 ) => {
+    const barber = await barberRepository.findOne({ where: { id: barberId } });
+    console.log(barber, "controller barber");
+    if (!barber) {
+        throw new Error(`Barbeiro com o ID ${barberId} não encontrado.`);
+    }
     const availability = availabilityRepository.create({
-        id_barber: barberId,
+        barber: barber,
         weekday: weekday,
         hours: hours,
     });
@@ -21,7 +27,7 @@ export const setAvailabilityService = async (
 
 export const getAvailableSlotsService = async (barberId: number) => {
     const slots = await availabilityRepository.find({
-        where: { id_barber: barberId },
+        where: { barber: { id: barberId } },
     });
 
     return slots;

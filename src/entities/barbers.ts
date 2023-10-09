@@ -1,4 +1,10 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from "typeorm";
+import {
+    Entity,
+    Column,
+    PrimaryGeneratedColumn,
+    OneToMany,
+    ManyToMany,
+} from "typeorm";
 import { Service } from "./barberService";
 import { UserAppointment } from "./userAppointments";
 import { BarberAvailability } from "./barberAvailability";
@@ -37,7 +43,7 @@ export class Barbers {
     })
     reset_token: string | null;
 
-    @OneToMany(() => Service, (service) => service.barbers)
+    @ManyToMany(() => Service, (service) => service.barbers)
     services: Service[];
 
     @OneToMany(() => UserAppointment, (appointment) => appointment.barber)

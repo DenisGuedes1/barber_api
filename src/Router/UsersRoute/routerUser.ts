@@ -14,6 +14,8 @@ import {
 import { veriFyTokenIsValid } from "../../Middleware/checkTokenMiddle";
 import { toggleFavoriteController } from "../../Controller/User/toggleFavorites.Controller";
 import { getFavorites } from "../../Controller/User/getFavoritesController";
+import { GetBarbersController } from "../../Controller/User/getAlBarbersController";
+import { getOneBarberController } from "../../Controller/User/getOneBarberController";
 
 const userRouter: Router = Router();
 
@@ -36,4 +38,11 @@ userRouter.post(
     toggleFavoriteController
 );
 userRouter.get("/user/favorites", veriFyTokenIsValid, getFavorites);
+
+userRouter.get("/barbers", veriFyTokenIsValid, GetBarbersController);
+userRouter.get(
+    "/barbers/:id_barber",
+    veriFyTokenIsValid,
+    getOneBarberController
+);
 export default userRouter;

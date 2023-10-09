@@ -7,9 +7,6 @@ export class BarberAvailability {
     id: number;
 
     @Column()
-    id_barber: number;
-
-    @Column()
     weekday: number;
 
     @Column()

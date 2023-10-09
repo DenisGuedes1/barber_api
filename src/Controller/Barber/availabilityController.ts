@@ -11,14 +11,16 @@ export const setAvailabilityController = async (
     try {
         const { weekday, hours } = req.body;
         const barberId = req.user.id;
+            
         const availability = await setAvailabilityService(
             barberId,
             weekday,
             hours
         );
+      
         res.json(availability);
     } catch (error) {
-        res.status(500).json({ error: "Erro ao definir disponibilidade" });
+        res.status(500).json({ error: "Erro ao definir disponibilidade set" });
     }
 };
 
@@ -28,7 +30,6 @@ export const getAvailableSlotsController = async (
 ) => {
     try {
         const { barberId } = req.params;
-        console.log(barberId, "id do params");
         const slots = await getAvailableSlotsService(parseInt(barberId));
         res.json(slots);
     } catch (error) {
